@@ -1,6 +1,6 @@
 <Solution>
-  <Project Path="PracticaProgramada1.Application/PracticaProgramada2.Application.csproj" />
-  <Project Path="PracticaProgramada1.Domain/PracticaProgramada2.Domain.csproj" />
-  <Project Path="PracticaProgramada1.nfrastructure/PracticaProgramada2.Infrastructure.csproj" />
-  <Project Path="PracticaProgramada1/PracticaProgramada2.csproj" />
+  <Project Path="PracticaProgramada2.Application/PracticaProgramada2.Application.csproj" />
+  <Project Path="PracticaProgramada2.Domain/PracticaProgramada2.Domain.csproj" />
+  <Project Path="PracticaProgramada2.Infrastructure/PracticaProgramada2.Infrastructure.csproj" />
+  <Project Path="PracticaProgramada2/PracticaProgramada2.csproj" />
 </Solution>
