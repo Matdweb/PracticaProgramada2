@@ -1,108 +1,82 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using PracticaProgramada1.Domain;
+using PracticaProgramada2.Domain;
 
-namespace PracticaProgramada1.Infrastructure.Data;
+namespace PracticaProgramada2.Infrastructure.Data;
 
 public partial class ApplicationDbContext : DbContext
 {
+    public ApplicationDbContext()
+    {
+    }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
     }
 
-    public virtual DbSet<Clientes> Clientes { get; set; }
+    public DbSet<Categoria> Categorias { get; set; }
 
+    public DbSet<Producto> Productos { get; set; }
 
-    public virtual DbSet<Telefonos> Telefonos { get; set; }
-
-
-    /// <param name="modelBuilder">Proporciona una API para configurar el modelo de EF.</param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Clientes>(entity =>
+        modelBuilder.Entity<Categoria>(entity =>
         {
-            entity.ToTable("Clientes");
+            entity.ToTable("Categorias");
 
-            entity.HasKey(e => e.ClienteId);
+            entity.HasKey(categoria => categoria.CategoriaId);
 
-            entity.HasIndex(e => e.Cedula, "IX_Clientes_Cedula").IsUnique();
+            entity.HasIndex(categoria => categoria.Nombre)
+                .IsUnique();
 
-            entity.HasIndex(e => e.ClienteId, "idx_clientes_clienteid");
-
-            entity.Property(e => e.ClienteId).ValueGeneratedOnAdd();
-
-            entity.Property(e => e.Cedula)
-                .IsRequired()
-                .HasMaxLength(20);
-
-            entity.Property(e => e.Nombre)
+            entity.Property(categoria => categoria.Nombre)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            entity.Property(e => e.PrimerApellido)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            entity.Property(e => e.SegundoApellido)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            entity.Property(e => e.Correo)
-                .IsRequired()
-                .HasMaxLength(150);
-
-            entity.Property(e => e.Direccion)
+            entity.Property(categoria => categoria.Descripcion)
                 .IsRequired()
                 .HasMaxLength(300);
 
-            entity.Property(e => e.FechaRegistro)
+            entity.Property(categoria => categoria.FechaRegistro)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("DATETIME");
-
-            entity.HasMany(d => d.Telefonos)
-                .WithOne(p => p.FkclienteNavigation)
-                .HasForeignKey(d => d.ClienteId)
-                .OnDelete(DeleteBehavior.Cascade);
         });
 
-        modelBuilder.Entity<Telefonos>(entity =>
+        modelBuilder.Entity<Producto>(entity =>
         {
-            entity.ToTable("Telefonos");
+            entity.ToTable("Productos");
 
-            entity.HasKey(e => e.TelefonoId);
+            entity.HasKey(producto => producto.ProductoId);
 
-            entity.HasIndex(e => e.ClienteId, "IX_Telefonos_ClienteId");
+            entity.HasIndex(producto => producto.CategoriaId);
 
-            entity.HasIndex(e => e.Numero, "idx_telefonos_numero");
-
-            entity.Property(e => e.TelefonoId).ValueGeneratedOnAdd();
-
-            entity.Property(e => e.ClienteId).IsRequired();
-
-            entity.Property(e => e.Numero)
+            entity.Property(producto => producto.Nombre)
                 .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(150);
 
-            entity.Property(e => e.Tipo)
+            entity.Property(producto => producto.Descripcion)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(300);
 
-            entity.Property(e => e.FechaRegistro)
+            entity.Property(producto => producto.Precio)
+                .IsRequired()
+                .HasColumnType("DECIMAL(18,2)");
+
+            entity.Property(producto => producto.Stock)
+                .IsRequired();
+
+            entity.Property(producto => producto.FechaRegistro)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("DATETIME");
 
-            entity.HasOne(d => d.FkclienteNavigation)
-                .WithMany(p => p.Telefonos)
-                .HasForeignKey(d => d.ClienteId)
-                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(producto => producto.Categoria)
+                .WithMany(categoria => categoria.Productos)
+                .HasForeignKey(producto => producto.CategoriaId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
 
         OnModelCreatingPartial(modelBuilder);
     }
 
-    /// <param name="modelBuilder">El generador del modelo de EF.</param>
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

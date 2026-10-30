@@ -1,0 +1,45 @@
+@{
+    ViewData["Title"] = "Categorías";
+}
+
+<link rel="stylesheet" href="~/css/categoria.css" asp-append-version="true" />
+
+<div class="categoria-page">
+    <div class="categoria-header">
+        <div>
+            <h1 class="categoria-title">
+                <i class="bi bi-tags-fill"></i> Categorías
+            </h1>
+            <p class="categoria-subtitle">Administra las categorías de productos médicos.</p>
+        </div>
+        <button type="button" class="btn btn-categoria-primary" data-bs-toggle="modal" data-bs-target="#modalCrearCategoria">
+            <i class="bi bi-plus-lg"></i> Nueva categoría
+        </button>
+    </div>
+
+    <div class="categoria-card">
+        <div class="categoria-card-header">
+            <h2><i class="bi bi-list-ul"></i> Lista de categorías</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table id="tblCategorias" class="table categoria-table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width:8%"><div class="th-content"><i class="bi bi-hash"></i> Id</div></th>
+                        <th><div class="th-content"><i class="bi bi-tag"></i> Nombre</div></th>
+                        <th><div class="th-content"><i class="bi bi-card-text"></i> Descripción</div></th>
+                        <th style="width:18%"><div class="th-content"><i class="bi bi-calendar3"></i> Fecha de registro</div></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("_Create", new PracticaProgramada2.Application.Dtos.CategoriaDto())
+</div>
+
+@section Scripts {
+    <script src="~/js/categoria.js" asp-append-version="true"></script>
+}

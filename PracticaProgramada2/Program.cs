@@ -1,7 +1,25 @@
+using Microsoft.EntityFrameworkCore;
+using PracticaProgramada2.Application.Mapping;
+using PracticaProgramada2.Application.Services;
+using PracticaProgramada2.Infrastructure.Data;
+using PracticaProgramada2.Infrastructure.Repository;
+using PracticaProgramada2.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+builder.Services.AddScoped<ICategoriaServicio, CategoriaServicio>();
+builder.Services.AddScoped<IProductoServicio, ProductoServicio>();
+
+//ADD MAPPER
+builder.Services.AddAutoMapper(cfg => { }, typeof(MapeoClases));
 
 var app = builder.Build();
 
@@ -12,6 +30,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseMiddleware<MiddlewareGlobalExceptionHandler>();
 
 app.UseHttpsRedirection();
 app.UseRouting();

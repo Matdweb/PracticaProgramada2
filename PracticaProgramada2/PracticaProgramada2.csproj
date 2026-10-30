@@ -13,4 +13,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PracticaProgramada2.Application\PracticaProgramada2.Application.csproj" />
+    <ProjectReference Include="..\PracticaProgramada2.Infrastructure\PracticaProgramada2.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

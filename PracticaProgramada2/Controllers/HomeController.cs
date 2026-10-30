@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using PracticaProgramada1.Models;
+using PracticaProgramada2.Models;
 using System.Diagnostics;
 
-namespace PracticaProgramada1.Controllers
+namespace PracticaProgramada2.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,4 +1,4 @@
-namespace PracticaProgramada1.Models
+namespace PracticaProgramada2.Models
 {
     public class ErrorViewModel
     {
