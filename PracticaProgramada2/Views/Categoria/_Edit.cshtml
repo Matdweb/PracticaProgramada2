@@ -1,0 +1,46 @@
+﻿@model PracticaProgramada2.Application.Dtos.CategoriaDto
+
+<div class="modal fade" id="modalEditarCategoria" tabindex="-1" aria-labelledby="modalEditarCategoriaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content categoria-modal">
+            <form id="formEditarCategoria" asp-controller="Categoria" asp-action="ActualizarCategoria" method="post">
+                <div class="modal-header categoria-modal-header">
+                    <div class="categoria-modal-heading">
+                        <span class="categoria-modal-icon"><i class="bi bi-pencil-square"></i></span>
+                        <div>
+                            <span class="categoria-eyebrow">EDITAR REGISTRO</span>
+                            <h5 class="modal-title" id="modalEditarCategoriaLabel">Editar categoría</h5>
+                            <p class="categoria-modal-subtitle">Modifica los datos de la categoría médica.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="editCategoriaId" name="CategoriaId" />
+
+                    <div class="mb-3">
+                        <label for="editCategoriaNombre" class="form-label">Nombre</label>
+                        <div class="categoria-control">
+                            <i class="bi bi-tag" aria-hidden="true"></i>
+                            <input id="editCategoriaNombre" name="Nombre" class="form-control" placeholder="Ej. Medicamentos" maxlength="100" autocomplete="off" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editCategoriaDescripcion" class="form-label">Descripción</label>
+                        <div class="categoria-control categoria-textarea">
+                            <i class="bi bi-card-text" aria-hidden="true"></i>
+                            <textarea id="editCategoriaDescripcion" name="Descripcion" class="form-control" placeholder="Describe la categoría" maxlength="300" rows="4" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-categoria-primary" id="btnActualizarCategoria"><i class="bi bi-check2"></i> Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

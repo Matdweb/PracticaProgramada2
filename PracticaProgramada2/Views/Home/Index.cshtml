@@ -1,8 +1,37 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link rel="stylesheet" href="~/css/categoria.css" asp-append-version="true" />
+
+<div class="categoria-page">
+    <div class="categoria-header">
+        <div>
+            <h1 class="categoria-title">
+                <i class="bi bi-heart-pulse-fill"></i> Gestión de productos médicos
+            </h1>
+            <p class="categoria-subtitle">Administra las categorías y los productos médicos del inventario.</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="categoria-card h-100 p-4">
+                <h2 class="h4 mb-2"><i class="bi bi-tags-fill"></i> Categorías</h2>
+                <p class="text-muted">Crea, consulta, edita y elimina las categorías que agrupan los productos.</p>
+                <a class="btn btn-categoria-primary" asp-controller="Categoria" asp-action="Index">
+                    <i class="bi bi-arrow-right-circle"></i> Ir a categorías
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="categoria-card h-100 p-4">
+                <h2 class="h4 mb-2"><i class="bi bi-capsule"></i> Productos</h2>
+                <p class="text-muted">Registra productos con su precio, stock y categoría, y mantenlos actualizados.</p>
+                <a class="btn btn-categoria-primary" asp-controller="Producto" asp-action="Index">
+                    <i class="bi bi-arrow-right-circle"></i> Ir a productos
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

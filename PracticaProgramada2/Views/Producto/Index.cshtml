@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Productos";
+}
+
+<link rel="stylesheet" href="~/css/categoria.css" asp-append-version="true" />
+
+<div class="categoria-page">
+    <div class="categoria-header">
+        <div>
+            <h1 class="categoria-title">
+                <i class="bi bi-capsule"></i> Productos
+            </h1>
+            <p class="categoria-subtitle">Administra los productos médicos y su categoría.</p>
+        </div>
+        <button type="button" class="btn btn-categoria-primary" data-bs-toggle="modal" data-bs-target="#modalCrearProducto">
+            <i class="bi bi-plus-lg"></i> Nuevo producto
+        </button>
+    </div>
+
+    <div class="categoria-card">
+        <div class="categoria-card-header">
+            <h2><i class="bi bi-list-ul"></i> Lista de productos</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table id="tblProductos" class="table categoria-table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width:6%"><div class="th-content"><i class="bi bi-hash"></i> Id</div></th>
+                        <th><div class="th-content"><i class="bi bi-capsule"></i> Nombre</div></th>
+                        <th><div class="th-content"><i class="bi bi-card-text"></i> Descripción</div></th>
+                        <th><div class="th-content"><i class="bi bi-tag"></i> Categoría</div></th>
+                        <th><div class="th-content"><i class="bi bi-currency-exchange"></i> Precio</div></th>
+                        <th style="width:8%"><div class="th-content"><i class="bi bi-box-seam"></i> Stock</div></th>
+                        <th style="width:14%"><div class="th-content"><i class="bi bi-calendar3"></i> Fecha de registro</div></th>
+                        <th style="width:10%"><div class="th-content"><i class="bi bi-gear"></i> Acciones</div></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("_Create", new PracticaProgramada2.Application.Dtos.ProductoDto())
+    @await Html.PartialAsync("_Edit", new PracticaProgramada2.Application.Dtos.ProductoDto())
+</div>
+
+@section Scripts {
+    <script src="~/js/producto.js" asp-append-version="true"></script>
+}

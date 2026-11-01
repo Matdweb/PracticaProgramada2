@@ -38,6 +38,11 @@ public class CategoriaServicio : ICategoriaServicio
             return Error(respuesta, "La categoría debe tener nombre y descripción.", 400);
         }
 
+        if (await _categoriaRepository.ExisteNombreAsync(categoriaEntity.Nombre, categoriaEntity.CategoriaId, cancellationToken))
+        {
+            return Error(respuesta, "Ya existe una categoría con ese nombre.", 409);
+        }
+
         if (!await _categoriaRepository.CreateAsync(categoriaEntity, cancellationToken))
         {
             return Error(respuesta, "No se pudo crear la categoría.", 500);
@@ -59,6 +64,11 @@ public class CategoriaServicio : ICategoriaServicio
             return Error(respuesta, "La categoría debe tener nombre y descripción.", 400);
         }
 
+        if (await _categoriaRepository.ExisteNombreAsync(categoriaEntity.Nombre, categoriaEntity.CategoriaId, cancellationToken))
+        {
+            return Error(respuesta, "Ya existe una categoría con ese nombre.", 409);
+        }
+
         if (!await _categoriaRepository.UpdateAsync(categoriaEntity, cancellationToken))
         {
             return Error(respuesta, "No se pudo actualizar la categoría.", 404);
@@ -72,6 +82,11 @@ public class CategoriaServicio : ICategoriaServicio
     public async Task<Respuesta<CategoriaDto>> EliminarCategoriaAsync(int id, CancellationToken cancellationToken = default)
     {
         var respuesta = new Respuesta<CategoriaDto>();
+
+        if (await _categoriaRepository.TieneProductosAsync(id, cancellationToken))
+        {
+            return Error(respuesta, "No se puede eliminar la categoría porque tiene productos asociados.", 409);
+        }
 
         if (!await _categoriaRepository.DeleteAsync(id, cancellationToken))
         {

@@ -1,0 +1,73 @@
+﻿@model PracticaProgramada2.Application.Dtos.ProductoDto
+
+<div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-labelledby="modalEditarProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content categoria-modal">
+            <form id="formEditarProducto" asp-controller="Producto" asp-action="ActualizarProducto" method="post">
+                <div class="modal-header categoria-modal-header">
+                    <div class="categoria-modal-heading">
+                        <span class="categoria-modal-icon"><i class="bi bi-pencil-square"></i></span>
+                        <div>
+                            <span class="categoria-eyebrow">EDITAR REGISTRO</span>
+                            <h5 class="modal-title" id="modalEditarProductoLabel">Editar producto</h5>
+                            <p class="categoria-modal-subtitle">Modifica los datos del producto médico.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="editProductoId" name="ProductoId" />
+
+                    <div class="mb-3">
+                        <label for="editProductoNombre" class="form-label">Nombre</label>
+                        <div class="categoria-control">
+                            <i class="bi bi-capsule" aria-hidden="true"></i>
+                            <input id="editProductoNombre" name="Nombre" class="form-control" placeholder="Ej. Paracetamol 500 mg" maxlength="150" autocomplete="off" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editProductoDescripcion" class="form-label">Descripción</label>
+                        <div class="categoria-control categoria-textarea">
+                            <i class="bi bi-card-text" aria-hidden="true"></i>
+                            <textarea id="editProductoDescripcion" name="Descripcion" class="form-control" placeholder="Describe el producto" maxlength="300" rows="3" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editProductoCategoria" class="form-label">Categoría</label>
+                        <div class="categoria-control">
+                            <i class="bi bi-tag" aria-hidden="true"></i>
+                            <select id="editProductoCategoria" name="CategoriaId" class="form-select" style="padding-left:2.35rem" required>
+                                <option value="">Seleccione una categoría</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="editProductoPrecio" class="form-label">Precio</label>
+                            <div class="categoria-control">
+                                <i class="bi bi-currency-exchange" aria-hidden="true"></i>
+                                <input id="editProductoPrecio" name="Precio" type="number" class="form-control" min="0" step="0.01" placeholder="0.00" required />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="editProductoStock" class="form-label">Stock</label>
+                            <div class="categoria-control">
+                                <i class="bi bi-box-seam" aria-hidden="true"></i>
+                                <input id="editProductoStock" name="Stock" type="number" class="form-control" min="0" step="1" placeholder="0" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-categoria-primary" id="btnActualizarProducto"><i class="bi bi-check2"></i> Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

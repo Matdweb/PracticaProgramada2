@@ -24,6 +24,19 @@ namespace PracticaProgramada2.Controllers
             return Json(categorias);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ObtenerCategoriaPorId(int id, CancellationToken cancellationToken)
+        {
+            var categoria = await _categoriaServicio.ObtenerCategoriaPorIdAsync(id, cancellationToken);
+
+            if (categoria is null)
+            {
+                return NotFound();
+            }
+
+            return Json(categoria);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CrearCategoria(CategoriaDto categoria, CancellationToken cancellationToken)
         {
@@ -33,6 +46,27 @@ namespace PracticaProgramada2.Controllers
             }
 
             var respuesta = await _categoriaServicio.CrearCategoriaAsync(categoria, cancellationToken);
+
+            return Json(respuesta);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ActualizarCategoria(CategoriaDto categoria, CancellationToken cancellationToken)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var respuesta = await _categoriaServicio.ActualizarCategoriaAsync(categoria, cancellationToken);
+
+            return Json(respuesta);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EliminarCategoria(int id, CancellationToken cancellationToken)
+        {
+            var respuesta = await _categoriaServicio.EliminarCategoriaAsync(id, cancellationToken);
 
             return Json(respuesta);
         }

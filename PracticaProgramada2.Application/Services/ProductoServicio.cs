@@ -8,11 +8,16 @@ namespace PracticaProgramada2.Application.Services;
 public class ProductoServicio : IProductoServicio
 {
     private readonly IProductoRepository _productoRepository;
+    private readonly ICategoriaRepository _categoriaRepository;
     private readonly IMapper _mapper;
 
-    public ProductoServicio(IProductoRepository productoRepository, IMapper mapper)
+    public ProductoServicio(
+        IProductoRepository productoRepository,
+        ICategoriaRepository categoriaRepository,
+        IMapper mapper)
     {
         _productoRepository = productoRepository;
+        _categoriaRepository = categoriaRepository;
         _mapper = mapper;
     }
 
@@ -38,6 +43,11 @@ public class ProductoServicio : IProductoServicio
             return Error(respuesta, "El producto contiene datos inválidos.", 400);
         }
 
+        if (!await CategoriaExisteAsync(productoEntity.CategoriaId, cancellationToken))
+        {
+            return Error(respuesta, "La categoría seleccionada no existe.", 400);
+        }
+
         if (!await _productoRepository.CreateAsync(productoEntity, cancellationToken))
         {
             return Error(respuesta, "No se pudo crear el producto.", 500);
@@ -57,6 +67,11 @@ public class ProductoServicio : IProductoServicio
         if (!productoEntity.ValidarReglasDeNegocio())
         {
             return Error(respuesta, "El producto contiene datos inválidos.", 400);
+        }
+
+        if (!await CategoriaExisteAsync(productoEntity.CategoriaId, cancellationToken))
+        {
+            return Error(respuesta, "La categoría seleccionada no existe.", 400);
         }
 
         if (!await _productoRepository.UpdateAsync(productoEntity, cancellationToken))
@@ -80,6 +95,18 @@ public class ProductoServicio : IProductoServicio
 
         respuesta.Mensaje = "Producto eliminado correctamente.";
         return respuesta;
+    }
+
+    /// <summary>
+    /// Verifica que la categoría indicada exista en la base de datos.
+    /// </summary>
+    /// <param name="categoriaId">Id de la categoría.</param>
+    /// <param name="cancellationToken">Token para cancelar la operación.</param>
+    /// <returns>True si la categoría existe.</returns>
+    private async Task<bool> CategoriaExisteAsync(int categoriaId, CancellationToken cancellationToken)
+    {
+        var categoria = await _categoriaRepository.GetByIdAsync(categoriaId, cancellationToken);
+        return categoria is not null;
     }
 
     private static Respuesta<ProductoDto> Error(

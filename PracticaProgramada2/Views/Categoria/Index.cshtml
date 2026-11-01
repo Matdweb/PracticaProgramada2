@@ -30,6 +30,7 @@
                         <th><div class="th-content"><i class="bi bi-tag"></i> Nombre</div></th>
                         <th><div class="th-content"><i class="bi bi-card-text"></i> Descripción</div></th>
                         <th style="width:18%"><div class="th-content"><i class="bi bi-calendar3"></i> Fecha de registro</div></th>
+                        <th style="width:12%"><div class="th-content"><i class="bi bi-gear"></i> Acciones</div></th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -38,6 +39,7 @@
     </div>
 
     @await Html.PartialAsync("_Create", new PracticaProgramada2.Application.Dtos.CategoriaDto())
+    @await Html.PartialAsync("_Edit", new PracticaProgramada2.Application.Dtos.CategoriaDto())
 </div>
 
 @section Scripts {

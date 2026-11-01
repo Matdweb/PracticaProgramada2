@@ -1,3 +1,5 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using PracticaProgramada2.Application.Mapping;
 using PracticaProgramada2.Application.Services;
@@ -32,6 +34,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<MiddlewareGlobalExceptionHandler>();
+
+var culturaInvariante = CultureInfo.InvariantCulture;
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(culturaInvariante),
+    SupportedCultures = new List<CultureInfo> { culturaInvariante },
+    SupportedUICultures = new List<CultureInfo> { culturaInvariante }
+});
 
 app.UseHttpsRedirection();
 app.UseRouting();
